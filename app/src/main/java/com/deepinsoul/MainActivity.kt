@@ -1,19 +1,31 @@
 package com.deepinsoul
 
-import android.support.v7.app.AppCompatActivity
-import android.os.Bundle
+import com.kotlin_baselib.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
+    override fun initListener() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-
-        // Example of a call to a native method
-        sample_text.text = stringFromJNI()
     }
 
+    override fun getResId(): Int {
+        return R.layout.activity_main
+    }
+
+    override fun initData() {
+        sample_text.text = stringFromJNI()
+        showLoading()
+    }
+
+
+    /*  override fun onCreate(savedInstanceState: Bundle?) {
+          super.onCreate(savedInstanceState)
+          setContentView(R.layout.activity_main)
+
+          // Example of a call to a native method
+          sample_text.text = stringFromJNI()
+      }
+  */
     /**
      * A native method that is implemented by the 'native-lib' native library,
      * which is packaged with this application.
@@ -27,4 +39,5 @@ class MainActivity : AppCompatActivity() {
             System.loadLibrary("native-lib")
         }
     }
+
 }
