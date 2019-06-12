@@ -1,3 +1,6 @@
 [submodule "soul_login"]
 	path = soul_login
 	url = https://github.com/CHANZHILIN/soul_login.git
+[submodule "kotlin_baseLib"]
+	path = kotlin_baseLib
+	url = https://github.com/CHANZHILIN/kotlin_baseLib.git
