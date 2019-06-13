@@ -1,12 +1,16 @@
 package com.deepinsoul
 
 import com.kotlin_baselib.base.BaseActivity
+import com.kotlin_baselib.base.EmptyModelImpl
+import com.kotlin_baselib.base.EmptyPresenterImpl
+import com.kotlin_baselib.base.EmptyView
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : BaseActivity() {
-    override fun initListener() {
-
+class MainActivity : BaseActivity<EmptyView, EmptyModelImpl, EmptyPresenterImpl>(), EmptyView {
+    override fun createPresenter(): EmptyPresenterImpl {
+        return EmptyPresenterImpl(this)
     }
+
 
     override fun getResId(): Int {
         return R.layout.activity_main
@@ -17,15 +21,10 @@ class MainActivity : BaseActivity() {
         showLoading()
     }
 
+    override fun initListener() {
 
-    /*  override fun onCreate(savedInstanceState: Bundle?) {
-          super.onCreate(savedInstanceState)
-          setContentView(R.layout.activity_main)
+    }
 
-          // Example of a call to a native method
-          sample_text.text = stringFromJNI()
-      }
-  */
     /**
      * A native method that is implemented by the 'native-lib' native library,
      * which is packaged with this application.
