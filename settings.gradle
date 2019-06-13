@@ -1,1 +1,1 @@
-include ':app', ':soul_login', ':kotlin_baselib'
+include ':app', ':soul_login', ':kotlin_baseLib'

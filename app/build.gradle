@@ -80,7 +80,7 @@ dependencies {
 
     annotationProcessor 'com.alibaba:arouter-compiler:1.2.1'
 
-    implementation project(path: ':kotlin_baselib')
+    implementation project(path: ':kotlin_baseLib')
 
     if (!project.ext.isSoulLoginDebug) {
         implementation project(path: ':soul_login')
