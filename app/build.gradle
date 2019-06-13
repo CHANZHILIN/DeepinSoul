@@ -12,6 +12,12 @@ android {
         applicationId project.ext.applicationId
         multiDexEnabled true
 
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [AROUTER_MODULE_NAME: project.getName()]
+            }
+        }
+
         externalNativeBuild {
             cmake {
                 cppFlags ""
@@ -50,8 +56,7 @@ android {
         variant.outputs.all {       //指定打包名字格式
             def date = new Date().format("yyyyMMdd", TimeZone.getTimeZone("GMT+08"))
             def fileName = "DeepinSoul" + "_V${defaultConfig.versionName}_${date}_" +
-                    variant.name +
-                    ".apk"
+                    variant.name + ".apk"
             outputFileName = fileName
         }
     }
@@ -72,6 +77,13 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
+    annotationProcessor 'com.alibaba:arouter-compiler:1.2.1'
+
     implementation project(path: ':kotlin_baselib')
+
+    if (!project.ext.isSoulLoginDebug) {
+        implementation project(path: ':soul_login')
+    }
 
 }
