@@ -1,9 +1,11 @@
 package com.deepinsoul
 
+import android.content.Context
 import com.kotlin_baselib.base.BaseActivity
 import com.kotlin_baselib.base.EmptyModelImpl
 import com.kotlin_baselib.base.EmptyPresenterImpl
 import com.kotlin_baselib.base.EmptyView
+import com.kotlin_baselib.glide.GlideUtil
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity<EmptyView, EmptyModelImpl, EmptyPresenterImpl>(), EmptyView {
@@ -18,7 +20,12 @@ class MainActivity : BaseActivity<EmptyView, EmptyModelImpl, EmptyPresenterImpl>
 
     override fun initData() {
         sample_text.text = stringFromJNI()
-        showLoading()
+//        showLoading()
+        GlideUtil.instance.loadBigImageWithProgress(
+            mContext as Context,
+            "http://img.mp.itc.cn/upload/20160713/2498549be77d471b8d29f1f232bffced.jpg",
+            progress_image
+        )
     }
 
     override fun initListener() {

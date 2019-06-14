@@ -17,4 +17,19 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
 
+    <com.kotlin_baselib.glide.ProgressImageView
+            android:id="@+id/progress_image"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            app:progressBackgroundColor="@color/colorPrimary"
+            app:progressCircleWidth="1dp"
+            app:progressSize="50dp"
+            app:progressColor="@color/colorPrimary"
+            app:progressTextColor="@color/colorPrimaryDark"
+            app:progressTextSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/sample_text"/>
+
 </android.support.constraint.ConstraintLayout>
