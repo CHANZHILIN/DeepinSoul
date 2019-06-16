@@ -1,14 +1,38 @@
 package com.deepinsoul
 
+import android.Manifest
 import android.content.Context
+import android.widget.Toast
 import com.kotlin_baselib.base.BaseActivity
 import com.kotlin_baselib.base.EmptyModelImpl
 import com.kotlin_baselib.base.EmptyPresenterImpl
 import com.kotlin_baselib.base.EmptyView
 import com.kotlin_baselib.glide.GlideUtil
 import kotlinx.android.synthetic.main.activity_main.*
+import pub.devrel.easypermissions.EasyPermissions
 
-class MainActivity : BaseActivity<EmptyView, EmptyModelImpl, EmptyPresenterImpl>(), EmptyView {
+class MainActivity : BaseActivity<EmptyView, EmptyModelImpl, EmptyPresenterImpl>(), EmptyView,
+    EasyPermissions.PermissionCallbacks {
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        // Forward results to EasyPermissions
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
+    }
+    override fun onPermissionsDenied(requestCode: Int, perms: MutableList<String>?) {
+        Toast.makeText(mContext, "权限拒绝", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>?) {
+            GlideUtil.instance.loadImageWithProgress(
+                mContext as Context,
+                "https://www.4hou.com/uploads/20180818/1534558145264870.png",
+                progress_image
+            )
+
+        hideLoading()
+    }
+
     override fun createPresenter(): EmptyPresenterImpl {
         return EmptyPresenterImpl(this)
     }
@@ -20,12 +44,11 @@ class MainActivity : BaseActivity<EmptyView, EmptyModelImpl, EmptyPresenterImpl>
 
     override fun initData() {
         sample_text.text = stringFromJNI()
-//        showLoading()
-        GlideUtil.instance.loadBigImageWithProgress(
-            mContext as Context,
-            "http://img.mp.itc.cn/upload/20160713/2498549be77d471b8d29f1f232bffced.jpg",
-            progress_image
-        )
+        showLoading()
+        if (!EasyPermissions.hasPermissions(this, Manifest.permission.INTERNET, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE)) {
+            EasyPermissions.requestPermissions(this, "网络权限", 1001, Manifest.permission.INTERNET, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE);
+        }
+
     }
 
     override fun initListener() {
