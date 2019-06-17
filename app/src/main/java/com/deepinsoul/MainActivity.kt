@@ -19,16 +19,17 @@ class MainActivity : BaseActivity<EmptyView, EmptyModelImpl, EmptyPresenterImpl>
         // Forward results to EasyPermissions
         EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
     }
+
     override fun onPermissionsDenied(requestCode: Int, perms: MutableList<String>?) {
         Toast.makeText(mContext, "权限拒绝", Toast.LENGTH_SHORT).show()
     }
 
     override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>?) {
-            GlideUtil.instance.loadImageWithProgress(
-                mContext as Context,
-                "https://www.4hou.com/uploads/20180818/1534558145264870.png",
-                progress_image
-            )
+        GlideUtil.instance.loadImageWithProgress(
+            mContext as Context,
+            "https://www.4hou.com/uploads/20180818/1534558145264870.png",
+            progress_image
+        )
 
         hideLoading()
     }
@@ -45,10 +46,22 @@ class MainActivity : BaseActivity<EmptyView, EmptyModelImpl, EmptyPresenterImpl>
     override fun initData() {
         sample_text.text = stringFromJNI()
         showLoading()
-        if (!EasyPermissions.hasPermissions(this, Manifest.permission.INTERNET, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE)) {
-            EasyPermissions.requestPermissions(this, "网络权限", 1001, Manifest.permission.INTERNET, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE);
+        if (!EasyPermissions.hasPermissions(
+                this,
+                Manifest.permission.INTERNET,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.READ_EXTERNAL_STORAGE
+            )
+        ) {
+            EasyPermissions.requestPermissions(
+                this,
+                "网络权限",
+                1001,
+                Manifest.permission.INTERNET,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.READ_EXTERNAL_STORAGE
+            );
         }
-
     }
 
     override fun initListener() {
@@ -70,3 +83,4 @@ class MainActivity : BaseActivity<EmptyView, EmptyModelImpl, EmptyPresenterImpl>
     }
 
 }
+
