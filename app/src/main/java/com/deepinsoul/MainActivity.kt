@@ -27,7 +27,8 @@ class MainActivity : BaseActivity<EmptyView, EmptyModelImpl, EmptyPresenterImpl>
     override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>?) {
         GlideUtil.instance.loadImageWithProgress(
             mContext as Context,
-            "https://www.4hou.com/uploads/20180818/1534558145264870.png",
+//            "https://www.4hou.com/uploads/20180818/1534558145264870.png",
+            "http://k.zol-img.com.cn/sjbbs/7692/a7691515_s.jpg",
             progress_image
         )
 
@@ -61,6 +62,13 @@ class MainActivity : BaseActivity<EmptyView, EmptyModelImpl, EmptyPresenterImpl>
                 Manifest.permission.WRITE_EXTERNAL_STORAGE,
                 Manifest.permission.READ_EXTERNAL_STORAGE
             );
+        }else{
+            GlideUtil.instance.loadImageWithProgress(
+                mContext as Context,
+//            "https://www.4hou.com/uploads/20180818/1534558145264870.png",
+                "http://k.zol-img.com.cn/sjbbs/7692/a7691515_s.jpg",
+                progress_image
+            )
         }
     }
 
