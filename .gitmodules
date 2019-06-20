@@ -4,3 +4,6 @@
 [submodule "kotlin_baseLib"]
 	path = kotlin_baseLib
 	url = https://github.com/CHANZHILIN/kotlin_baseLib.git
+[submodule "soul_picture"]
+	path = soul_picture
+	url = https://github.com/CHANZHILIN/soul_picture.git
