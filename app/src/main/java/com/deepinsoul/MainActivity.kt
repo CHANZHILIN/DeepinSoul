@@ -197,20 +197,7 @@ class MainActivity : BaseActivity<EmptyView, EmptyModelImpl, EmptyPresenterImpl>
         return super.onCreateOptionsMenu(menu)
     }
 
-/*    override fun onMenuOpened(featureId: Int, menu: Menu?): Boolean {
-        if (menu != null) {
-            if (menu.javaClass.getSimpleName().equals("MenuBuilder")) {
-                try {
-                    val method = menu.javaClass.getDeclaredMethod("setOptionalIconsVisible", Boolean.javaClass);
-                    method.setAccessible(true);
-                    method.invoke(menu, true);
-                } catch (e: Exception) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        return super.onMenuOpened(featureId, menu)
-    }*/
+
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
         if (keyCode == KeyEvent.KEYCODE_BACK && event?.action == KeyEvent.ACTION_DOWN) {
