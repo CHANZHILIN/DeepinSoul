@@ -1,50 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:context=".MainActivity">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
 
     <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-        <include layout="@layout/layout_toolbar"/>
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include layout="@layout/layout_toolbar" />
+
         <RadioGroup
-                android:id="@+id/rg_main"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:orientation="horizontal">
+            android:id="@+id/rg_main"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="horizontal">
+
             <RadioButton
-                    android:id="@+id/rb_picture"
-                    style="@style/Main.RadioButton"
-                    android:textSize="20sp"
-                    android:text="@string/picture"
-                    android:checked="true"/>
+                android:id="@+id/rb_picture"
+                style="@style/Main.RadioButton"
+                android:checked="true"
+                android:text="@string/picture"
+                android:textSize="20sp" />
+
             <RadioButton
-                    android:id="@+id/rb_music"
-                    style="@style/Main.RadioButton"
-                    android:text="@string/music"/>
+                android:id="@+id/rb_music"
+                style="@style/Main.RadioButton"
+                android:text="@string/music" />
+
             <RadioButton
-                    android:id="@+id/rb_video"
-                    style="@style/Main.RadioButton"
-                    android:text="@string/video"/>
+                android:id="@+id/rb_video"
+                style="@style/Main.RadioButton"
+                android:text="@string/video" />
         </RadioGroup>
     </FrameLayout>
 
     <android.support.v4.widget.DrawerLayout
-            android:id="@+id/drawer"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        android:id="@+id/drawer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <com.kotlin_baselib.widget.NoScrollViewPager
-                android:id="@+id/scrollViewPager"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+            android:id="@+id/scrollViewPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
         <!--  <android.support.constraint.ConstraintLayout
                   android:layout_width="match_parent"
@@ -77,20 +81,20 @@
   -->
 
         <LinearLayout
-                android:id="@+id/drawer_view"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="start"
-                android:orientation="vertical"
-                android:background="#FFF"
-                android:clickable="true"
-                android:padding="8dp">
+            android:id="@+id/drawer_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:background="#FFF"
+            android:clickable="true"
+            android:orientation="vertical"
+            android:padding="8dp">
 
             <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:textColor="@color/colorPrimary"
-                    android:text="@string/app_name"/>
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/app_name"
+                android:textColor="@color/colorPrimary" />
 
         </LinearLayout>
 

@@ -1,16 +1,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-      xmlns:tools="http://schemas.android.com/tools"
-      tools:context="com.example.menu.MainActivity">
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.menu.MainActivity">
 
     <item
-            android:id="@+id/first"
-            android:title="第一个Menu"/>
+        android:id="@+id/first"
+        android:title="第一个Menu" />
     <item
-            android:id="@+id/second"
-            android:title="第二个Menu"
-    />
+        android:id="@+id/second"
+        android:title="第二个Menu" />
     <item
-            android:id="@+id/third"
-            android:title="第三个Menu"
-    />
+        android:id="@+id/third"
+        android:title="第三个Menu" />
 </menu>

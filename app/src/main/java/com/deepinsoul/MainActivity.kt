@@ -31,7 +31,7 @@ import pub.devrel.easypermissions.EasyPermissions
  *  Introduce:
  **/
 class MainActivity : BaseActivity<EmptyView, EmptyModelImpl, EmptyPresenterImpl>(), EmptyView,
-    EasyPermissions.PermissionCallbacks, RadioGroup.OnCheckedChangeListener {
+        EasyPermissions.PermissionCallbacks, RadioGroup.OnCheckedChangeListener {
 
     private val mFragments = SparseArray<Fragment>()
     private val rbIdList = intArrayOf(R.id.rb_picture, R.id.rb_music, R.id.rb_video)
@@ -46,9 +46,9 @@ class MainActivity : BaseActivity<EmptyView, EmptyModelImpl, EmptyPresenterImpl>
 
     override fun onPermissionsDenied(requestCode: Int, perms: MutableList<String>?) {
         SnackbarUtil.ShortSnackbar(
-            window.decorView,
-            "拒绝权限",
-            SnackbarUtil.ALERT
+                window.decorView,
+                "拒绝权限",
+                SnackbarUtil.ALERT
         ).show()
     }
 
@@ -79,25 +79,25 @@ class MainActivity : BaseActivity<EmptyView, EmptyModelImpl, EmptyPresenterImpl>
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         val actionBarDrawerToggle =
-            ActionBarDrawerToggle(this, drawer, toolbar, R.string.drawer_open, R.string.drawer_close)
+                ActionBarDrawerToggle(this, drawer, toolbar, R.string.drawer_open, R.string.drawer_close)
         actionBarDrawerToggle.syncState()
         drawer.setDrawerListener(actionBarDrawerToggle)
 //        sample_text.text = stringFromJNI()
         showLoading()
         if (!EasyPermissions.hasPermissions(
-                this,
-                Manifest.permission.INTERNET,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                Manifest.permission.READ_EXTERNAL_STORAGE
-            )
+                        this,
+                        Manifest.permission.INTERNET,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        Manifest.permission.READ_EXTERNAL_STORAGE
+                )
         ) {
             EasyPermissions.requestPermissions(
-                this,
-                "网络权限",
-                1001,
-                Manifest.permission.INTERNET,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                Manifest.permission.READ_EXTERNAL_STORAGE
+                    this,
+                    "网络权限",
+                    1001,
+                    Manifest.permission.INTERNET,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                    Manifest.permission.READ_EXTERNAL_STORAGE
             );
         } else {
             /* GlideUtil.instance.loadImageWithProgress(
@@ -171,21 +171,21 @@ class MainActivity : BaseActivity<EmptyView, EmptyModelImpl, EmptyPresenterImpl>
                 drawer.openDrawer(GravityCompat.START)
             R.id.first ->
                 SnackbarUtil.ShortSnackbar(
-                    window.decorView,
-                    item.title.toString(),
-                    SnackbarUtil.INFO
+                        window.decorView,
+                        item.title.toString(),
+                        SnackbarUtil.INFO
                 ).show()
             R.id.second ->
                 SnackbarUtil.ShortSnackbar(
-                    window.decorView,
-                    item.title.toString(),
-                    SnackbarUtil.CONFIRM
+                        window.decorView,
+                        item.title.toString(),
+                        SnackbarUtil.CONFIRM
                 ).show()
             R.id.third ->
                 SnackbarUtil.ShortSnackbar(
-                    window.decorView,
-                    item.title.toString(),
-                    SnackbarUtil.WARNING
+                        window.decorView,
+                        item.title.toString(),
+                        SnackbarUtil.WARNING
                 ).show()
         }
 
@@ -198,15 +198,14 @@ class MainActivity : BaseActivity<EmptyView, EmptyModelImpl, EmptyPresenterImpl>
     }
 
 
-
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
         if (keyCode == KeyEvent.KEYCODE_BACK && event?.action == KeyEvent.ACTION_DOWN) {
             if (System.currentTimeMillis() - mFirstTime > 2000) {
                 mFirstTime = System.currentTimeMillis()
                 SnackbarUtil.ShortSnackbar(
-                    window.decorView,
-                    getString(R.string.click_one_more_time_to_exit),
-                    SnackbarUtil.ALERT
+                        window.decorView,
+                        getString(R.string.click_one_more_time_to_exit),
+                        SnackbarUtil.ALERT
                 ).show()
                 return false
             }
