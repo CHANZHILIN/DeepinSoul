@@ -23,16 +23,16 @@
                     android:id="@+id/rb_picture"
                     style="@style/Main.RadioButton"
                     android:textSize="20sp"
-                    android:text="图片"
+                    android:text="@string/picture"
                     android:checked="true"/>
             <RadioButton
                     android:id="@+id/rb_music"
                     style="@style/Main.RadioButton"
-                    android:text="音乐"/>
+                    android:text="@string/music"/>
             <RadioButton
                     android:id="@+id/rb_video"
                     style="@style/Main.RadioButton"
-                    android:text="视频"/>
+                    android:text="@string/video"/>
         </RadioGroup>
     </FrameLayout>
 

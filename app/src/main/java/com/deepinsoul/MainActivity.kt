@@ -9,6 +9,7 @@ import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.widget.Toolbar
 import android.util.SparseArray
 import android.view.KeyEvent
+import android.view.Menu
 import android.view.MenuItem
 import android.widget.RadioButton
 import android.widget.RadioGroup
@@ -47,7 +48,7 @@ class MainActivity : BaseActivity<EmptyView, EmptyModelImpl, EmptyPresenterImpl>
         SnackbarUtil.ShortSnackbar(
             window.decorView,
             "拒绝权限",
-            SnackbarUtil.Alert
+            SnackbarUtil.ALERT
         ).show()
     }
 
@@ -58,6 +59,7 @@ class MainActivity : BaseActivity<EmptyView, EmptyModelImpl, EmptyPresenterImpl>
                 "http://k.zol-img.com.cn/sjbbs/7692/a7691515_s.jpg",
                 progress_image
         )*/
+        setFragments()
 
 //        hideLoading()
     }
@@ -104,7 +106,7 @@ class MainActivity : BaseActivity<EmptyView, EmptyModelImpl, EmptyPresenterImpl>
                      "http://k.zol-img.com.cn/sjbbs/7692/a7691515_s.jpg",
                      progress_image
              )*/
-            setFragments();
+            setFragments()
         }
     }
 
@@ -163,10 +165,52 @@ class MainActivity : BaseActivity<EmptyView, EmptyModelImpl, EmptyPresenterImpl>
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        //弹出DrawerLayout菜单，参数为弹出的方式
-        drawer.openDrawer(GravityCompat.START);
+        val id = item?.itemId
+        when (id) {
+            R.id.drawer ->//弹出DrawerLayout菜单，参数为弹出的方式
+                drawer.openDrawer(GravityCompat.START)
+            R.id.first ->
+                SnackbarUtil.ShortSnackbar(
+                    window.decorView,
+                    item.title.toString(),
+                    SnackbarUtil.INFO
+                ).show()
+            R.id.second ->
+                SnackbarUtil.ShortSnackbar(
+                    window.decorView,
+                    item.title.toString(),
+                    SnackbarUtil.CONFIRM
+                ).show()
+            R.id.third ->
+                SnackbarUtil.ShortSnackbar(
+                    window.decorView,
+                    item.title.toString(),
+                    SnackbarUtil.WARNING
+                ).show()
+        }
+
         return super.onOptionsItemSelected(item)
     }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.picture_menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+/*    override fun onMenuOpened(featureId: Int, menu: Menu?): Boolean {
+        if (menu != null) {
+            if (menu.javaClass.getSimpleName().equals("MenuBuilder")) {
+                try {
+                    val method = menu.javaClass.getDeclaredMethod("setOptionalIconsVisible", Boolean.javaClass);
+                    method.setAccessible(true);
+                    method.invoke(menu, true);
+                } catch (e: Exception) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return super.onMenuOpened(featureId, menu)
+    }*/
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
         if (keyCode == KeyEvent.KEYCODE_BACK && event?.action == KeyEvent.ACTION_DOWN) {
@@ -175,7 +219,7 @@ class MainActivity : BaseActivity<EmptyView, EmptyModelImpl, EmptyPresenterImpl>
                 SnackbarUtil.ShortSnackbar(
                     window.decorView,
                     getString(R.string.click_one_more_time_to_exit),
-                    SnackbarUtil.Alert
+                    SnackbarUtil.ALERT
                 ).show()
                 return false
             }
