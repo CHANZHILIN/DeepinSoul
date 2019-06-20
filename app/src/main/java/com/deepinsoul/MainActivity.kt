@@ -7,7 +7,6 @@ import android.support.v4.view.GravityCompat
 import android.support.v4.view.ViewPager
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.widget.Toolbar
-import android.util.DisplayMetrics
 import android.util.SparseArray
 import android.view.KeyEvent
 import android.view.MenuItem
@@ -17,9 +16,10 @@ import com.kotlin_baselib.base.BaseActivity
 import com.kotlin_baselib.base.EmptyModelImpl
 import com.kotlin_baselib.base.EmptyPresenterImpl
 import com.kotlin_baselib.base.EmptyView
-import com.kotlin_baselib.utils.Dp2PxUtil
 import com.kotlin_baselib.utils.SnackbarUtil
+import com.soul_music.MusicFragment
 import com.soul_picture.PictureFragment
+import com.soul_video.VideoFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import pub.devrel.easypermissions.EasyPermissions
 
@@ -110,8 +110,8 @@ class MainActivity : BaseActivity<EmptyView, EmptyModelImpl, EmptyPresenterImpl>
 
     private fun setFragments() {
         mFragments.put(0, PictureFragment.newInstance("picture"))
-        mFragments.put(1, PictureFragment.newInstance("music"))
-        mFragments.put(2, PictureFragment.newInstance("video"))
+        mFragments.put(1, MusicFragment.newInstance("music"))
+        mFragments.put(2, VideoFragment.newInstance("video"))
         val adapter = object : FragmentPagerAdapter(supportFragmentManager) {
             override fun getItem(i: Int): Fragment {
                 return mFragments.get(i)
