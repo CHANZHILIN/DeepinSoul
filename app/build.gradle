@@ -83,5 +83,14 @@ dependencies {
     if (!project.ext.isSoulLoginDebug) {
         implementation project(path: ':soul_login')
     }
+    if (!project.ext.isSoulPictureDebug) {
+        implementation project(path: ':soul_picture')
+    }
+    if (!project.ext.isSoulMusicDebug) {
+        implementation project(path: ':soul_music')
+    }
+    if (!project.ext.isSoulVideoDebug) {
+        implementation project(path: ':soul_video')
+    }
 
 }

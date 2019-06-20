@@ -13,6 +13,7 @@
             android:layout_height="wrap_content">
         <include layout="@layout/layout_toolbar"/>
         <RadioGroup
+                android:id="@+id/rg_main"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -20,16 +21,17 @@
                 android:orientation="horizontal">
             <RadioButton
                     android:id="@+id/rb_picture"
-                    style="@style/Main_RadioButton"
+                    style="@style/Main.RadioButton"
+                    android:textSize="20sp"
                     android:text="图片"
                     android:checked="true"/>
             <RadioButton
                     android:id="@+id/rb_music"
-                    style="@style/Main_RadioButton"
+                    style="@style/Main.RadioButton"
                     android:text="音乐"/>
             <RadioButton
                     android:id="@+id/rb_video"
-                    style="@style/Main_RadioButton"
+                    style="@style/Main.RadioButton"
                     android:text="视频"/>
         </RadioGroup>
     </FrameLayout>

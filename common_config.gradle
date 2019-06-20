@@ -9,7 +9,10 @@ project.ext {
     supportVersion = "28.0.0"
     constraintLayoutVersion = '1.1.3'
 
-    isSoulLoginDebug = false; //false：为module，true：为application
+    isSoulLoginDebug = false  //false：为module，true：为application
+    isSoulPictureDebug = false
+    isSoulMusicDebug = false
+    isSoulVideoDebug = false
 
     setDefaultConfig = {
         extension ->    //闭包参数extension相当于android 对象
