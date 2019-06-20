@@ -7,3 +7,9 @@
 [submodule "soul_picture"]
 	path = soul_picture
 	url = https://github.com/CHANZHILIN/soul_picture.git
+[submodule "soul_music"]
+	path = soul_music
+	url = https://github.com/CHANZHILIN/soul_music.git
+[submodule "soul_video"]
+	path = soul_video
+	url = https://github.com/CHANZHILIN/soul_video.git
