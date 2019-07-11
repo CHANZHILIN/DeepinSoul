@@ -19,13 +19,13 @@ import com.kotlin_baselib.base.BaseActivity
 import com.kotlin_baselib.base.EmptyModelImpl
 import com.kotlin_baselib.base.EmptyPresenterImpl
 import com.kotlin_baselib.base.EmptyView
+import com.kotlin_baselib.utils.PermissionUtils
 import com.kotlin_baselib.utils.SnackbarUtil
 import com.soul_music.MusicFragment
 import com.soul_picture.PictureFragment
 import com.soul_video.VideoFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.layout_main_drawer.*
-import pub.devrel.easypermissions.EasyPermissions
 
 /**
  *  Created by CHEN on 2019/6/12
@@ -33,39 +33,13 @@ import pub.devrel.easypermissions.EasyPermissions
  *  Package:com.deepinsoul
  *  Introduce:
  **/
-class MainActivity : BaseActivity<EmptyView, EmptyModelImpl, EmptyPresenterImpl>(), EmptyView,
-        EasyPermissions.PermissionCallbacks, RadioGroup.OnCheckedChangeListener {
+class MainActivity : BaseActivity<EmptyView, EmptyModelImpl, EmptyPresenterImpl>(), EmptyView, RadioGroup.OnCheckedChangeListener {
 
     private val mFragments = SparseArray<Fragment>()
     private val rbIdList = intArrayOf(R.id.rb_picture, R.id.rb_music, R.id.rb_video)
 
     private var mFirstTime: Long = 0
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        // Forward results to EasyPermissions
-        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
-    }
-
-    override fun onPermissionsDenied(requestCode: Int, perms: MutableList<String>?) {
-        SnackbarUtil.ShortSnackbar(
-                window.decorView,
-                "拒绝权限",
-                SnackbarUtil.ALERT
-        ).show()
-    }
-
-    override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>?) {
-/*        GlideUtil.instance.loadImageWithProgress(
-                mContext as Context,
-//            "https://www.4hou.com/uploads/20180818/1534558145264870.png",
-                "http://k.zol-img.com.cn/sjbbs/7692/a7691515_s.jpg",
-                progress_image
-        )*/
-        setFragments()
-
-//        hideLoading()
-    }
 
     override fun createPresenter(): EmptyPresenterImpl {
         return EmptyPresenterImpl(this)
@@ -86,31 +60,23 @@ class MainActivity : BaseActivity<EmptyView, EmptyModelImpl, EmptyPresenterImpl>
         actionBarDrawerToggle.syncState()
         drawer.setDrawerListener(actionBarDrawerToggle)
 //        sample_text.text = stringFromJNI()
-        showLoading()
-        if (!EasyPermissions.hasPermissions(
-                        this,
-                        Manifest.permission.INTERNET,
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                        Manifest.permission.READ_EXTERNAL_STORAGE
-                )
-        ) {
-            EasyPermissions.requestPermissions(
-                    this,
-                    "网络权限",
-                    1001,
-                    Manifest.permission.INTERNET,
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                    Manifest.permission.READ_EXTERNAL_STORAGE
-            );
-        } else {
-            /* GlideUtil.instance.loadImageWithProgress(
-                     mContext as Context,
- //            "https://www.4hou.com/uploads/20180818/1534558145264870.png",
-                     "http://k.zol-img.com.cn/sjbbs/7692/a7691515_s.jpg",
-                     progress_image
-             )*/
-            setFragments()
-        }
+//        showLoading()
+        PermissionUtils.permission(Manifest.permission.INTERNET,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.READ_EXTERNAL_STORAGE).callBack(object : PermissionUtils.PermissionCallBack {
+            override fun onGranted(permissionUtils: PermissionUtils) {
+                setFragments()
+            }
+
+            override fun onDenied(permissionUtils: PermissionUtils) {
+                setFragments()
+                SnackbarUtil.ShortSnackbar(
+                        window.decorView,
+                        "拒绝了权限，将无法使用部分功能",
+                        SnackbarUtil.WARNING
+                ).show()
+            }
+        }).request()
     }
 
 
