@@ -4,7 +4,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
-
+apply plugin: 'kotlin-kapt'  //kapt3插件
 android {
     project.ext.setDefaultConfig android    //调用配置信息
 
@@ -12,9 +12,9 @@ android {
         applicationId project.ext.applicationId
         multiDexEnabled true
 
-        javaCompileOptions {
-            annotationProcessorOptions {
-                arguments = [AROUTER_MODULE_NAME: project.getName()]
+        kapt {  //ARouter Config
+            arguments {
+                arg("AROUTER_MODULE_NAME", project.getName())
             }
         }
 
@@ -76,9 +76,9 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
-    annotationProcessor 'com.alibaba:arouter-compiler:1.2.1'
 
     implementation project(path: ':kotlin_baseLib')
+    kapt 'com.alibaba:arouter-compiler:1.2.1'
 
     if (!project.ext.isSoulLoginDebug) {
         implementation project(path: ':soul_login')

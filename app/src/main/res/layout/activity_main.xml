@@ -80,23 +80,8 @@
           </android.support.constraint.ConstraintLayout>
   -->
 
-        <LinearLayout
-            android:id="@+id/drawer_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="start"
-            android:background="#FFF"
-            android:clickable="true"
-            android:orientation="vertical"
-            android:padding="8dp">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="@string/app_name"
-                android:textColor="@color/colorPrimary" />
-
-        </LinearLayout>
+        <!--抽屉布局-->
+        <include layout="@layout/layout_main_drawer" />
 
 
     </android.support.v4.widget.DrawerLayout>

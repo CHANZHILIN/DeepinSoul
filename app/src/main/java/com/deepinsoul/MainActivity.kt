@@ -13,6 +13,8 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.RadioButton
 import android.widget.RadioGroup
+import com.alibaba.android.arouter.launcher.ARouter
+import com.kotlin_baselib.api.Constants
 import com.kotlin_baselib.base.BaseActivity
 import com.kotlin_baselib.base.EmptyModelImpl
 import com.kotlin_baselib.base.EmptyPresenterImpl
@@ -22,6 +24,7 @@ import com.soul_music.MusicFragment
 import com.soul_picture.PictureFragment
 import com.soul_video.VideoFragment
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.layout_main_drawer.*
 import pub.devrel.easypermissions.EasyPermissions
 
 /**
@@ -110,6 +113,11 @@ class MainActivity : BaseActivity<EmptyView, EmptyModelImpl, EmptyPresenterImpl>
         }
     }
 
+
+    override fun initListener() {
+        btn_friends_planet.setOnClickListener { ARouter.getInstance().build(Constants.FRIENDS_PLANNET_ACTIVITY_PATH).navigation() }
+    }
+
     private fun setFragments() {
         mFragments.put(0, PictureFragment.newInstance("picture"))
         mFragments.put(1, MusicFragment.newInstance("music"))
@@ -152,7 +160,7 @@ class MainActivity : BaseActivity<EmptyView, EmptyModelImpl, EmptyPresenterImpl>
         for (id in rbIdList) {
             if (id == checkedId) {
                 scrollViewPager.setCurrentItem(i, true)
-                findViewById<RadioButton>(id).textSize = 20f
+                findViewById<RadioButton>(id).textSize = 18f
             } else {
                 findViewById<RadioButton>(id).textSize = 16f
             }
@@ -160,9 +168,6 @@ class MainActivity : BaseActivity<EmptyView, EmptyModelImpl, EmptyPresenterImpl>
         }
     }
 
-
-    override fun initListener() {
-    }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         val id = item?.itemId
