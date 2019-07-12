@@ -1,6 +1,7 @@
 package com.deepinsoul
 
 import android.Manifest
+import android.content.Context
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentPagerAdapter
 import android.support.v4.view.GravityCompat
@@ -26,6 +27,10 @@ import com.soul_picture.PictureFragment
 import com.soul_video.VideoFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.layout_main_drawer.*
+import android.content.Context.WIFI_SERVICE
+import android.net.wifi.WifiManager
+import android.util.Log
+
 
 /**
  *  Created by CHEN on 2019/6/12
@@ -77,6 +82,7 @@ class MainActivity : BaseActivity<EmptyView, EmptyModelImpl, EmptyPresenterImpl>
                 ).show()
             }
         }).request()
+
     }
 
 
