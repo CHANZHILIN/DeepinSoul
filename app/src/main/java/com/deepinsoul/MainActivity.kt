@@ -30,6 +30,7 @@ import kotlinx.android.synthetic.main.layout_main_drawer.*
 import android.content.Context.WIFI_SERVICE
 import android.net.wifi.WifiManager
 import android.util.Log
+import com.meituan.android.walle.WalleChannelReader
 
 
 /**
@@ -83,6 +84,7 @@ class MainActivity : BaseActivity<EmptyView, EmptyModelImpl, EmptyPresenterImpl>
             }
         }).request()
 
+        WalleChannelReader.getChannel(this.getApplicationContext())?.let { SnackbarUtil.ShortSnackbar(window.decorView, it,SnackbarUtil.CONFIRM).show() }
     }
 
 

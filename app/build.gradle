@@ -5,8 +5,13 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'  //kapt3插件
+
+apply plugin: 'walle'
+
 android {
     project.ext.setDefaultConfig android    //调用配置信息
+    //必须要保证所有的flavor 都属于同一个维度
+//    flavorDimensions "default"
 
     defaultConfig {
         applicationId project.ext.applicationId
@@ -30,12 +35,16 @@ android {
             storePassword KEYSTORE_PASSWORD
             keyAlias KEY_ALIAS
             keyPassword KEY_PASSWORD
+            v1SigningEnabled true
+            v2SigningEnabled true
         }
         release {
             storeFile file(KEYSTORE_FILE)
             storePassword KEYSTORE_PASSWORD
             keyAlias KEY_ALIAS
             keyPassword KEY_PASSWORD
+            v1SigningEnabled true
+            v2SigningEnabled true
         }
     }
 
@@ -49,25 +58,42 @@ android {
             minifyEnabled false      //打开混淆，如果混淆出问题，可关闭
             shrinkResources false        //资源压缩
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
 
     applicationVariants.all { variant ->
         variant.outputs.all {       //指定打包名字格式
             def date = new Date().format("yyyyMMdd", TimeZone.getTimeZone("GMT+08"))
+         /*   def fileName = "DeepinSoul_${variant.productFlavors[0].name}" + "_V${defaultConfig.versionName}_${date}_" +
+                    variant.name + ".apk"*/
             def fileName = "DeepinSoul" + "_V${defaultConfig.versionName}_${date}_" +
                     variant.name + ".apk"
             outputFileName = fileName
         }
     }
+
+
     externalNativeBuild {
         cmake {
             path "src/main/cpp/CMakeLists.txt"
             version "3.10.2"
         }
     }
+    walle {
+        // 指定渠道包的输出路径
+        apkOutputFolder = new File("${project.buildDir}/outputs/channels");
+        // 定制渠道包的APK的文件名称
+        apkFileNameFormat = '${packageName}_${channel}_${buildType}_v${versionName}_${buildTime}.apk';
+        // 渠道配置文件
+        channelFile = new File("${project.getProjectDir()}/channel")
+    }
+
 
 }
+
+
+
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -76,6 +102,7 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
+    implementation 'com.meituan.android.walle:library:1.1.6'
 
     implementation project(path: ':kotlin_baseLib')
     kapt 'com.alibaba:arouter-compiler:1.2.1'
