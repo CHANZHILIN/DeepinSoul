@@ -4,11 +4,11 @@
 
     <item
         android:id="@+id/first"
-        android:title="第一个Menu" />
+        android:title="@string/take_picture" />
     <item
         android:id="@+id/second"
-        android:title="第二个Menu" />
+        android:title="@string/record" />
     <item
         android:id="@+id/third"
-        android:title="第三个Menu" />
+        android:title="@string/take_video" />
 </menu>

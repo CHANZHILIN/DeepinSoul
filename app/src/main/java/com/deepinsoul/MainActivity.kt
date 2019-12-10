@@ -1,36 +1,30 @@
 package com.deepinsoul
 
 import android.Manifest
-import android.content.Context
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentPagerAdapter
-import android.support.v4.view.GravityCompat
-import android.support.v4.view.ViewPager
-import android.support.v7.app.ActionBarDrawerToggle
-import android.support.v7.widget.Toolbar
 import android.util.SparseArray
 import android.view.KeyEvent
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.RadioButton
 import android.widget.RadioGroup
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.widget.Toolbar
+import androidx.core.view.GravityCompat
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentPagerAdapter
+import androidx.viewpager.widget.ViewPager
 import com.alibaba.android.arouter.launcher.ARouter
 import com.kotlin_baselib.api.Constants
-import com.kotlin_baselib.base.BaseActivity
-import com.kotlin_baselib.base.EmptyModelImpl
-import com.kotlin_baselib.base.EmptyPresenterImpl
-import com.kotlin_baselib.base.EmptyView
+import com.kotlin_baselib.mvvmbase.BaseViewModelActivity
+import com.kotlin_baselib.mvvmbase.EmptyViewModel
 import com.kotlin_baselib.utils.PermissionUtils
 import com.kotlin_baselib.utils.SnackbarUtil
+import com.meituan.android.walle.WalleChannelReader
 import com.soul_music.MusicFragment
 import com.soul_picture.PictureFragment
 import com.soul_video.VideoFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.layout_main_drawer.*
-import android.content.Context.WIFI_SERVICE
-import android.net.wifi.WifiManager
-import android.util.Log
-import com.meituan.android.walle.WalleChannelReader
 
 
 /**
@@ -39,17 +33,13 @@ import com.meituan.android.walle.WalleChannelReader
  *  Package:com.deepinsoul
  *  Introduce:
  **/
-class MainActivity : BaseActivity<EmptyView, EmptyModelImpl, EmptyPresenterImpl>(), EmptyView, RadioGroup.OnCheckedChangeListener {
+class MainActivity : BaseViewModelActivity<EmptyViewModel>(), RadioGroup.OnCheckedChangeListener {
+    override fun providerVMClass(): Class<EmptyViewModel> = EmptyViewModel::class.java
 
     private val mFragments = SparseArray<Fragment>()
     private val rbIdList = intArrayOf(R.id.rb_picture, R.id.rb_music, R.id.rb_video)
 
     private var mFirstTime: Long = 0
-
-
-    override fun createPresenter(): EmptyPresenterImpl {
-        return EmptyPresenterImpl(this)
-    }
 
 
     override fun getResId(): Int {
@@ -62,14 +52,22 @@ class MainActivity : BaseActivity<EmptyView, EmptyModelImpl, EmptyPresenterImpl>
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         val actionBarDrawerToggle =
-                ActionBarDrawerToggle(this, drawer, toolbar, R.string.drawer_open, R.string.drawer_close)
+            ActionBarDrawerToggle(
+                this,
+                drawer,
+                toolbar,
+                R.string.drawer_open,
+                R.string.drawer_close
+            )
         actionBarDrawerToggle.syncState()
         drawer.setDrawerListener(actionBarDrawerToggle)
 //        sample_text.text = stringFromJNI()
 //        showLoading()
-        PermissionUtils.permission(Manifest.permission.INTERNET,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                Manifest.permission.READ_EXTERNAL_STORAGE).callBack(object : PermissionUtils.PermissionCallBack {
+        PermissionUtils.permission(
+            Manifest.permission.INTERNET,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.READ_EXTERNAL_STORAGE
+        ).callBack(object : PermissionUtils.PermissionCallBack {
             override fun onGranted(permissionUtils: PermissionUtils) {
                 setFragments()
             }
@@ -77,19 +75,22 @@ class MainActivity : BaseActivity<EmptyView, EmptyModelImpl, EmptyPresenterImpl>
             override fun onDenied(permissionUtils: PermissionUtils) {
                 setFragments()
                 SnackbarUtil.ShortSnackbar(
-                        window.decorView,
-                        "拒绝了权限，将无法使用部分功能",
-                        SnackbarUtil.WARNING
+                    rg_main,
+                    "拒绝了权限，将无法使用部分功能",
+                    SnackbarUtil.WARNING
                 ).show()
             }
         }).request()
 
-        WalleChannelReader.getChannel(this.getApplicationContext())?.let { SnackbarUtil.ShortSnackbar(window.decorView, it,SnackbarUtil.CONFIRM).show() }
+        WalleChannelReader.getChannel(this.getApplicationContext())
+            ?.let { SnackbarUtil.ShortSnackbar(rg_main, it, SnackbarUtil.CONFIRM).show() }
     }
 
 
     override fun initListener() {
-        btn_friends_planet.setOnClickListener { ARouter.getInstance().build(Constants.FRIENDS_PLANNET_ACTIVITY_PATH).navigation() }
+        btn_friends_planet.setOnClickListener {
+            ARouter.getInstance().build(Constants.FRIENDS_PLANNET_ACTIVITY_PATH).navigation()
+        }
     }
 
     private fun setFragments() {
@@ -108,7 +109,11 @@ class MainActivity : BaseActivity<EmptyView, EmptyModelImpl, EmptyPresenterImpl>
         rg_main.setOnCheckedChangeListener(this)
         scrollViewPager.adapter = adapter
         scrollViewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
-            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+            override fun onPageScrolled(
+                position: Int,
+                positionOffset: Float,
+                positionOffsetPixels: Int
+            ) {
 
             }
 
@@ -135,6 +140,7 @@ class MainActivity : BaseActivity<EmptyView, EmptyModelImpl, EmptyPresenterImpl>
             if (id == checkedId) {
                 scrollViewPager.setCurrentItem(i, true)
                 findViewById<RadioButton>(id).textSize = 18f
+                if (drawer.isDrawerOpen(drawer_view)) drawer.closeDrawer(drawer_view)   //切换页面，如果抽屉是打开的，则需要关掉
             } else {
                 findViewById<RadioButton>(id).textSize = 16f
             }
@@ -149,23 +155,11 @@ class MainActivity : BaseActivity<EmptyView, EmptyModelImpl, EmptyPresenterImpl>
             R.id.drawer ->//弹出DrawerLayout菜单，参数为弹出的方式
                 drawer.openDrawer(GravityCompat.START)
             R.id.first ->
-                SnackbarUtil.ShortSnackbar(
-                        window.decorView,
-                        item.title.toString(),
-                        SnackbarUtil.INFO
-                ).show()
+                ARouter.getInstance().build(Constants.RECORD_VIDEO_ACTIVITY_PATH).withInt("CameraMode",0).navigation()
             R.id.second ->
-                SnackbarUtil.ShortSnackbar(
-                        window.decorView,
-                        item.title.toString(),
-                        SnackbarUtil.CONFIRM
-                ).show()
+                ARouter.getInstance().build(Constants.NRECORD_AUDIO_ACTIVITY_PATH).navigation()
             R.id.third ->
-                SnackbarUtil.ShortSnackbar(
-                        window.decorView,
-                        item.title.toString(),
-                        SnackbarUtil.WARNING
-                ).show()
+                ARouter.getInstance().build(Constants.RECORD_VIDEO_ACTIVITY_PATH).withInt("CameraMode",1).navigation()
         }
 
         return super.onOptionsItemSelected(item)
@@ -182,14 +176,19 @@ class MainActivity : BaseActivity<EmptyView, EmptyModelImpl, EmptyPresenterImpl>
             if (System.currentTimeMillis() - mFirstTime > 2000) {
                 mFirstTime = System.currentTimeMillis()
                 SnackbarUtil.ShortSnackbar(
-                        window.decorView,
-                        getString(R.string.click_one_more_time_to_exit),
-                        SnackbarUtil.ALERT
+                    rg_main,
+                    getString(R.string.click_one_more_time_to_exit),
+                    SnackbarUtil.ALERT
                 ).show()
                 return false
             }
         }
         return super.onKeyDown(keyCode, event)
+    }
+
+    override fun onMenuOpened(featureId: Int, menu: Menu?): Boolean {
+        if (drawer.isDrawerOpen(drawer_view)) drawer.closeDrawer(drawer_view)   //如果抽屉是打开的，则需要关掉
+        return super.onMenuOpened(featureId, menu)
     }
 
 

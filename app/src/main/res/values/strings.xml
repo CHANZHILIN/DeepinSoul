@@ -6,4 +6,7 @@
     <string name="picture">图片</string>
     <string name="music">音乐</string>
     <string name="video">视频</string>
+    <string name="take_picture">拍照</string>
+    <string name="record">录音</string>
+    <string name="take_video">拍视频</string>
 </resources>
