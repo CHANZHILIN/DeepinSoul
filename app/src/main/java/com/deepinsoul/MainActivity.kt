@@ -15,8 +15,8 @@ import androidx.fragment.app.FragmentPagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.alibaba.android.arouter.launcher.ARouter
 import com.kotlin_baselib.api.Constants
-import com.kotlin_baselib.mvvmbase.BaseViewModelActivity
-import com.kotlin_baselib.mvvmbase.EmptyViewModel
+import com.kotlin_baselib.base.BaseViewModelActivity
+import com.kotlin_baselib.base.EmptyViewModel
 import com.kotlin_baselib.utils.PermissionUtils
 import com.kotlin_baselib.utils.SnackbarUtil
 import com.meituan.android.walle.WalleChannelReader
@@ -42,9 +42,7 @@ class MainActivity : BaseViewModelActivity<EmptyViewModel>(), RadioGroup.OnCheck
     private var mFirstTime: Long = 0
 
 
-    override fun getResId(): Int {
-        return R.layout.activity_main
-    }
+    override fun getResId(): Int = R.layout.activity_main
 
     override fun initData() {
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
