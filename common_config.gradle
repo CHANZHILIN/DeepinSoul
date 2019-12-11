@@ -1,7 +1,7 @@
 project.ext {
     compileSdkVersion = 28
     buildToolsVersion = "29.0.0"
-    minSdkVersion = 18
+    minSdkVersion = 21
     targetSdkVersion = 28
     applicationId = "com.deepinsoul"
     versionCode = 1
