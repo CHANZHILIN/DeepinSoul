@@ -5,6 +5,7 @@ import android.util.SparseArray
 import android.view.KeyEvent
 import android.view.Menu
 import android.view.MenuItem
+import android.view.WindowManager
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -43,6 +44,7 @@ class MainActivity : BaseViewModelActivity<EmptyViewModel>(), RadioGroup.OnCheck
 
 
     override fun getResId(): Int = R.layout.activity_main
+
 
     override fun initData() {
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
