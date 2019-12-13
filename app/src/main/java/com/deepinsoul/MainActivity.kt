@@ -5,7 +5,6 @@ import android.util.SparseArray
 import android.view.KeyEvent
 import android.view.Menu
 import android.view.MenuItem
-import android.view.WindowManager
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -21,9 +20,9 @@ import com.kotlin_baselib.base.EmptyViewModel
 import com.kotlin_baselib.utils.PermissionUtils
 import com.kotlin_baselib.utils.SnackbarUtil
 import com.meituan.android.walle.WalleChannelReader
-import com.soul_music.MusicFragment
-import com.soul_picture.PictureFragment
-import com.soul_video.VideoFragment
+import com.soul_music.main.MusicFragment
+import com.soul_picture.main.PictureFragment
+import com.soul_video.main.VideoFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.layout_main_drawer.*
 
