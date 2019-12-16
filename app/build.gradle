@@ -10,12 +10,14 @@ apply plugin: 'walle'
 
 android {
     project.ext.setDefaultConfig android    //调用配置信息
-    //必须要保证所有的flavor 都属于同一个维度
-//    flavorDimensions "default"
 
     defaultConfig {
         applicationId project.ext.applicationId
         multiDexEnabled true
+
+        ndk {
+            abiFilters "armeabi-v7a"  // 指定要ndk需要兼容的架构(这样其他依赖包里mips,x86,armeabi,arm-v8之类的so会被过滤掉)
+        }
 
         kapt {  //ARouter Config
             arguments {
@@ -26,6 +28,7 @@ android {
         externalNativeBuild {
             cmake {
                 cppFlags ""
+                abiFilters 'armeabi-v7a'
             }
         }
     }
