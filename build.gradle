@@ -20,6 +20,8 @@ buildscript {
 allprojects {
     repositories {
         google()
+        //颜色选择器需要
+        maven { url "https://jitpack.io" }
         jcenter()
 
     }
