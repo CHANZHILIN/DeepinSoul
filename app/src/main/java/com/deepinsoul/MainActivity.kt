@@ -48,7 +48,7 @@ class MainActivity : BaseViewModelActivity<EmptyViewModel>(), RadioGroup.OnCheck
 
     override fun initData() {
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
-        toolbar.setTitle("")
+        toolbar.title = ""
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         val actionBarDrawerToggle =
@@ -160,11 +160,13 @@ class MainActivity : BaseViewModelActivity<EmptyViewModel>(), RadioGroup.OnCheck
             R.id.drawer ->//弹出DrawerLayout菜单，参数为弹出的方式
                 drawer.openDrawer(GravityCompat.START)
             R.id.first ->
-                ARouter.getInstance().build(Constants.RECORD_VIDEO_ACTIVITY_PATH).withInt("CameraMode",0).navigation()
+                ARouter.getInstance().build(Constants.RECORD_VIDEO_ACTIVITY_PATH)
+                    .withInt("CameraMode", 0).navigation()
             R.id.second ->
                 ARouter.getInstance().build(Constants.NRECORD_AUDIO_ACTIVITY_PATH).navigation()
             R.id.third ->
-                ARouter.getInstance().build(Constants.RECORD_VIDEO_ACTIVITY_PATH).withInt("CameraMode",1).navigation()
+                ARouter.getInstance().build(Constants.RECORD_VIDEO_ACTIVITY_PATH)
+                    .withInt("CameraMode", 1).navigation()
         }
 
         return super.onOptionsItemSelected(item)
