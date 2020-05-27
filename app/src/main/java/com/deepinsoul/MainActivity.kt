@@ -18,6 +18,7 @@ import com.kotlin_baselib.api.Constants
 import com.kotlin_baselib.base.BaseViewModelActivity
 import com.kotlin_baselib.base.EmptyViewModel
 import com.kotlin_baselib.utils.PermissionUtils
+import com.kotlin_baselib.utils.SdCardUtil
 import com.kotlin_baselib.utils.SnackbarUtil
 import com.meituan.android.walle.WalleChannelReader
 import com.soul_music.main.MusicFragment
@@ -69,6 +70,8 @@ class MainActivity : BaseViewModelActivity<EmptyViewModel>(), RadioGroup.OnCheck
         ).callBack(object : PermissionUtils.PermissionCallBack {
             override fun onGranted(permissionUtils: PermissionUtils) {
                 setFragments()
+                //获取读写权限后，初始化项目文件夹
+                SdCardUtil.initFileDir(this@MainActivity)
             }
 
             override fun onDenied(permissionUtils: PermissionUtils) {
@@ -78,10 +81,11 @@ class MainActivity : BaseViewModelActivity<EmptyViewModel>(), RadioGroup.OnCheck
                     "拒绝了权限，将无法使用部分功能",
                     SnackbarUtil.WARNING
                 ).show()
+                finish()
             }
         }).request()
 
-        WalleChannelReader.getChannel(this.getApplicationContext())
+        WalleChannelReader.getChannel(this.applicationContext)
             ?.let { SnackbarUtil.ShortSnackbar(rg_main, it, SnackbarUtil.CONFIRM).show() }
     }
 
@@ -134,16 +138,18 @@ class MainActivity : BaseViewModelActivity<EmptyViewModel>(), RadioGroup.OnCheck
     }
 
     override fun onCheckedChanged(group: RadioGroup?, checkedId: Int) {
-        var i = 0
-        for (id in rbIdList) {
+        for ((i, id) in rbIdList.withIndex()) {
             if (id == checkedId) {
                 scrollViewPager.setCurrentItem(i, true)
-                findViewById<RadioButton>(id).textSize = 18f
+                findViewById<RadioButton>(id).animate().scaleX(1.2f)
+                findViewById<RadioButton>(id).animate().scaleY(1.2f)
+//                findViewById<RadioButton>(id).textSize = 18f
                 if (drawer.isDrawerOpen(drawer_view)) drawer.closeDrawer(drawer_view)   //切换页面，如果抽屉是打开的，则需要关掉
             } else {
-                findViewById<RadioButton>(id).textSize = 16f
+                findViewById<RadioButton>(id).animate().scaleX(1.0f)
+                findViewById<RadioButton>(id).animate().scaleY(1.0f)
+//                findViewById<RadioButton>(id).textSize = 16f
             }
-            i++
         }
     }
 

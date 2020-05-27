@@ -1,1 +1,1 @@
-include ':app', ':kotlin_baseLib',':soul_login', ':soul_picture', ':soul_music', ':soul_video', ':libjpeg'
+include ':app', ':kotlin_baseLib',':soul_login', ':soul_picture', ':soul_music', ':soul_video'
