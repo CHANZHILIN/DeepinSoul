@@ -19,7 +19,7 @@ import com.kotlin_baselib.base.BaseViewModelActivity
 import com.kotlin_baselib.base.EmptyViewModel
 import com.kotlin_baselib.utils.PermissionUtils
 import com.kotlin_baselib.utils.SdCardUtil
-import com.kotlin_baselib.utils.SnackbarUtil
+import com.kotlin_baselib.utils.SnackBarUtil
 import com.meituan.android.walle.WalleChannelReader
 import com.soul_music.main.MusicFragment
 import com.soul_picture.main.PictureFragment
@@ -76,17 +76,17 @@ class MainActivity : BaseViewModelActivity<EmptyViewModel>(), RadioGroup.OnCheck
 
             override fun onDenied(permissionUtils: PermissionUtils) {
                 setFragments()
-                SnackbarUtil.ShortSnackbar(
+                SnackBarUtil.shortSnackBar(
                     rg_main,
                     "拒绝了权限，将无法使用部分功能",
-                    SnackbarUtil.WARNING
+                    SnackBarUtil.WARNING
                 ).show()
                 finish()
             }
         }).request()
 
         WalleChannelReader.getChannel(this.applicationContext)
-            ?.let { SnackbarUtil.ShortSnackbar(rg_main, it, SnackbarUtil.CONFIRM).show() }
+            ?.let { SnackBarUtil.shortSnackBar(rg_main, it, SnackBarUtil.CONFIRM).show() }
     }
 
 
@@ -182,10 +182,10 @@ class MainActivity : BaseViewModelActivity<EmptyViewModel>(), RadioGroup.OnCheck
         if (keyCode == KeyEvent.KEYCODE_BACK && event?.action == KeyEvent.ACTION_DOWN) {
             if (System.currentTimeMillis() - mFirstTime > 2000) {
                 mFirstTime = System.currentTimeMillis()
-                SnackbarUtil.ShortSnackbar(
+                SnackBarUtil.shortSnackBar(
                     rg_main,
                     getString(R.string.click_one_more_time_to_exit),
-                    SnackbarUtil.ALERT
+                    SnackBarUtil.ALERT
                 ).show()
                 return false
             }
