@@ -122,7 +122,7 @@ class MainActivity : BaseViewModelActivity<EmptyViewModel>(), RadioGroup.OnCheck
 
             override fun onPageSelected(position: Int) {
                 var i = 0
-                for (id in rbIdList) {
+                rbIdList.forEach { id ->
                     if (position == i) {
                         rg_main.check(id)
                     }
