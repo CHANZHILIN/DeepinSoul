@@ -11,4 +11,7 @@
     <item
         android:id="@+id/third"
         android:title="@string/take_video" />
+    <item
+        android:id="@+id/four"
+        android:title="Gif" />
 </menu>

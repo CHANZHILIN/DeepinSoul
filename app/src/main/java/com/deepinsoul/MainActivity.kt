@@ -167,6 +167,9 @@ class MainActivity : BaseViewModelActivity<EmptyViewModel>(), RadioGroup.OnCheck
             R.id.third ->
                 ARouter.getInstance().build(Constants.RECORD_VIDEO_ACTIVITY_PATH)
                     .withInt("CameraMode", 1).navigation()
+            R.id.four ->{
+                ARouter.getInstance().build(Constants.GIF_PICTURE_ACTIVITY_PATH).navigation()
+            }
         }
 
         return super.onOptionsItemSelected(item)
